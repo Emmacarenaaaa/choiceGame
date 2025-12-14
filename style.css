@@ -1,0 +1,114 @@
+/* Minimalist / Clean Reset */
+body {
+    font-family: 'Courier New', Courier, monospace;
+    /* Conserve la police Typewriter */
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #111;
+    /* Fond très sombre, pas purement noir */
+    color: #f0f0f0;
+    /* Écriture blanche cassée */
+}
+
+/* Full Screen Frame */
+#game-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #111;
+}
+
+/* Image - Clean Filter */
+#scene-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.5s ease-out;
+    /* Transition plus rapide, plus nette */
+    /* On retire les filtres d'horreur */
+    filter: brightness(75%) grayscale(50%);
+    /* Rendre l'image un peu sombre et moins colorée */
+}
+
+/* UI Overlay - Minimalist & Transparent */
+#ui-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    /* Étendre sur toute la largeur */
+    right: 0;
+    width: 100%;
+    box-sizing: border-box;
+
+    /* Fond noir très transparent */
+    background: rgba(0, 0, 0, 0.85);
+    color: #f0f0f0;
+
+    padding: 25px 40px;
+    /* Un padding suffisant */
+    border-top: 1px solid #333;
+    /* Ligne de séparation fine et grise */
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.4);
+    /* Ombre légère */
+    border-radius: 0;
+    /* Retirer les arrondis */
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Text Styling */
+#scene-text {
+    margin: 0;
+    font-size: 1.2em;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+    text-shadow: none;
+    /* Retirer l'ombre de texte */
+}
+
+/* Choice Buttons Container */
+#choice-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Minimalist Button Style */
+.choice-btn {
+    padding: 10px 15px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    text-align: left;
+    cursor: pointer;
+
+    background-color: transparent;
+    color: #aaa;
+    /* Gris clair pour le texte par défaut */
+    border: 1px solid #444;
+    /* Bordure gris moyen */
+    border-left: 2px solid #888;
+    /* Petit accent de couleur grise */
+
+    transition: all 0.2s ease;
+}
+
+.choice-btn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    /* Très légère surbrillance blanche */
+    color: #fff;
+    /* Texte en blanc pur sur hover */
+    border-color: #888;
+    border-left: 2px solid #fff;
+    /* Mettre l'accent en blanc pur */
+    padding-left: 15px;
+    /* Retirer l'effet de mouvement */
+    text-shadow: none;
+}
