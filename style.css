@@ -4,9 +4,12 @@ body {
     /* Conserve la police Typewriter */
     margin: 0;
     padding: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
+    /* Utilisation de 100% au lieu de 100vw/vh pour une meilleure compatibilité des barres de défilement mobiles */
+    width: 100%;
+    height: 100%;
+    /* Retirer overflow: hidden; peut causer des problèmes sur mobile avec les barres d'adresse */
+    overflow-x: hidden; /* Empêche le défilement horizontal */
+    overflow-y: auto; /* Autorise le défilement vertical si nécessaire */
     background-color: #111;
     /* Fond très sombre, pas purement noir */
     color: #f0f0f0;
@@ -15,9 +18,11 @@ body {
 
 /* Full Screen Frame */
 #game-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    position: fixed; /* Utiliser fixed pour maintenir la vue en plein écran, même si le body scroll */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background-color: #111;
 }
 
@@ -28,10 +33,7 @@ body {
     object-fit: cover;
     display: block;
     transition: opacity 0.5s ease-out;
-    /* Transition plus rapide, plus nette */
-    /* On retire les filtres d'horreur */
     filter: brightness(75%) grayscale(50%);
-    /* Rendre l'image un peu sombre et moins colorée */
 }
 
 /* UI Overlay - Minimalist & Transparent */
@@ -39,23 +41,18 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
-    /* Étendre sur toute la largeur */
     right: 0;
     width: 100%;
     box-sizing: border-box;
 
-    /* Fond noir très transparent */
     background: rgba(0, 0, 0, 0.85);
     color: #f0f0f0;
 
-    padding: 25px 40px;
-    /* Un padding suffisant */
+    /* Padding de base pour desktop/tablette */
+    padding: 25px 40px; 
+    
     border-top: 1px solid #333;
-    /* Ligne de séparation fine et grise */
     box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.4);
-    /* Ombre légère */
-    border-radius: 0;
-    /* Retirer les arrondis */
 
     display: flex;
     flex-direction: column;
@@ -65,11 +62,12 @@ body {
 /* Text Styling */
 #scene-text {
     margin: 0;
-    font-size: 1.2em;
+    /* Utilisation de 'rem' pour un texte responsive basé sur la taille de la police de base */
+    font-size: 1.2rem;
     line-height: 1.5;
     letter-spacing: 0.5px;
-    text-shadow: none;
-    /* Retirer l'ombre de texte */
+    /* Max-width pour améliorer la lisibilité des longs blocs de texte sur de très grands écrans */
+    max-width: 1200px;
 }
 
 /* Choice Buttons Container */
@@ -83,7 +81,8 @@ body {
 
 /* Minimalist Button Style */
 .choice-btn {
-    padding: 10px 15px;
+    /* Utilisation de 'em' pour que le padding et la taille de police changent ensemble */
+    padding: 0.8em 1.2em; 
     font-family: 'Courier New', Courier, monospace;
     font-size: 1em;
     text-align: left;
@@ -91,24 +90,58 @@ body {
 
     background-color: transparent;
     color: #aaa;
-    /* Gris clair pour le texte par défaut */
     border: 1px solid #444;
-    /* Bordure gris moyen */
     border-left: 2px solid #888;
-    /* Petit accent de couleur grise */
 
     transition: all 0.2s ease;
+    /* Assure que les boutons ne sont jamais plus larges que le container sur une seule ligne */
+    flex-grow: 0;
+    flex-shrink: 1;
 }
 
 .choice-btn:hover {
     background-color: rgba(255, 255, 255, 0.05);
-    /* Très légère surbrillance blanche */
     color: #fff;
-    /* Texte en blanc pur sur hover */
     border-color: #888;
     border-left: 2px solid #fff;
-    /* Mettre l'accent en blanc pur */
-    padding-left: 15px;
-    /* Retirer l'effet de mouvement */
-    text-shadow: none;
+    padding-left: 1.2em;
+}
+
+/* --- Media Queries pour le Mobile --- */
+
+@media (max-width: 768px) {
+    /* Ajustement de l'UI sur les tablettes et petits écrans */
+    #ui-container {
+        /* Diminution du padding pour les petits écrans */
+        padding: 15px 20px; 
+        gap: 15px;
+    }
+
+    /* Texte plus petit sur mobile pour une meilleure densité d'information */
+    #scene-text {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+    
+    /* Les boutons prennent toute la largeur sur mobile pour être plus faciles à cliquer (UX mobile) */
+    #choice-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .choice-btn {
+        width: 100%; /* Prend toute la largeur disponible */
+        text-align: center; /* Centrer le texte pour les boutons pleine largeur */
+        box-sizing: border-box;
+        padding: 12px 10px; /* Augmenter un peu le padding vertical pour faciliter le tap */
+        
+        /* Retirer l'accent de couleur latéral car moins pertinent sur un bouton pleine largeur */
+        border-left: 1px solid #444; 
+    }
+
+    .choice-btn:hover {
+        /* Retirer l'effet d'accent latéral au survol sur mobile */
+        border-left: 1px solid #888; 
+        padding-left: 10px;
+    }
 }
